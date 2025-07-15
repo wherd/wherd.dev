@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}" itemscope itemtype="http://schema.org/WebSite">
+
+<head>
+    {{ partial "head.html" . }}
+</head>
+
+<body>
+    {{ partial "nav.html" . }}
+    {{ block "main" . }}{{ end }}
+    {{ partial "footer.html" . }}
+
+    {{ partial "help-overlay.html" . }}
+
+    {{ $jsMain := resources.Get "js/script.js" | minify }}
+    <script src="{{ $jsMain.RelPermalink }}" defer></script>
+</body>
+
+</html>

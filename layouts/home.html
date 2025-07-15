@@ -1,0 +1,35 @@
+{{ define "main" }}
+
+<header>
+    <h1>Wherd</h1>
+    <p class="subtitle">Developer & Digital Creator of Cool Stuff</p>
+</header>
+
+<section class="intro">
+    <p>I'm a full-stack developer rebuilding and learning about the tools I use every day. My approach is simple:
+        focused on building tools that do one thing well and respects my time and system resources.</p>
+    <p>I'm particularly interested in how AI can enhance developer tools without adding bloat &mdash;
+        <em>"intelligence"</em>
+        that solves real problems rather than creating new dependencies.
+    </p>
+</section>
+
+<section class="section">
+    <h2>Selected Projects</h2>
+    <div class="grid">
+        {{ range where site.RegularPages "Type" "projects" }}
+        {{ .Render "card" }}
+        {{ end }}
+    </div>
+</section>
+
+<section class="section">
+    <h2>Recent Writing</h2>
+    <div class="grid">
+        {{ range where site.RegularPages "Type" "blog" }}
+        {{ .Render "card" }}
+        {{ end }}
+    </div>
+</section>
+
+{{ end }}

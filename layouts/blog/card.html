@@ -1,0 +1,13 @@
+<article>
+    <h3 class="card-title"><a href="{{ .RelPermalink }}"> {{ .LinkTitle }}</a></h3>
+    <p class="card-date">{{ .Date.Format "January 2, 2006" }}</p>
+    <p class="card-description">{{ .Params.overview | plainify }}</p>
+    <div class="card-meta">
+        <span class="sr-only">Tags:</span>
+        <div class="card-tags">
+            {{ range .Params.tags }}
+            <a href="{{ "tags/" | relLangURL }}{{ . | urlize }}" class="tag">{{ . }}</a>
+            {{ end }}
+        </div>
+    </div>
+</article>

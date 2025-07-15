@@ -1,0 +1,57 @@
+# GitHub Actions Workflow for Wherd Site Deployment
+
+name: Deploy Hugo Site
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+        fetch-depth: 0
+    
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v2
+      with:
+        hugo-version: 'latest'
+        extended: true
+    
+    - name: Build Hugo site
+      run: hugo --minify
+    
+    - name: Test build output
+      run: |
+        echo "Build completed successfully"
+        echo "Generated files:"
+        ls -la public/
+        echo "Total files: $(find public -type f | wc -l)"
+    
+    - name: Trigger deployment webhook
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      run: |
+        curl -X POST \
+          -H "Content-Type: application/json" \
+          -H "X-Hub-Signature-256: sha256=$(echo -n '${{ toJson(github) }}' | openssl dgst -sha256 -hmac '${{ secrets.WEBHOOK_SECRET }}' | cut -d' ' -f2)" \
+          -d '${{ toJson(github) }}' \
+          ${{ secrets.WEBHOOK_URL }}
+      env:
+        WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+        WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
+    
+    - name: Deployment notification
+      if: always()
+      run: |
+        if [ "${{ job.status }}" = "success" ]; then
+          echo "✅ Deployment triggered successfully"
+        else
+          echo "❌ Deployment failed"
+        fi

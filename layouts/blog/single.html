@@ -1,0 +1,53 @@
+{{ define "main" }}
+<article>
+    <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">→</span>
+        <a href="/blog">Blog</a>
+        <span class="breadcrumb-separator">→</span>
+        <span>{{ .Title }}</span>
+    </nav>
+
+    <header class="article-header">
+        <time class="small-text mono">{{ .Date.Format "January 2, 2006" }}</time>
+
+        <h1 class="article-title">{{ .Title }}</h1>
+        <p class="article-subtitle subtitle">{{ .Params.description }}</p>
+
+        <div class="tags">
+            <span class="sr-only">Tags:</span>
+            {{ range .Params.tags }}
+            <a href="{{ "tags/" | relLangURL }}{{ . | urlize }}" class="tag">{{ . }}</a>
+            {{ end }}
+        </div>
+    </header>
+
+
+    <main class="section">
+        {{ .Content }}
+    </main>
+
+    <footer class="section">
+        {{ if or .PrevInSection .NextInSection }}
+        <nav class="project-header">
+            {{ with .PrevInSection }}
+            <a href="{{ .RelPermalink }}" class="link-simple">
+                <div class="small-text text-muted">← Previous</div>
+                <div>{{ .Title }}</div>
+            </a>
+            {{ end }}
+            {{ with .NextInSection }}
+            <a href="{{ .RelPermalink }}" class="link-simple">
+                <div class="small-text text-muted">Next →</div>
+                <div>{{ .Title }}</div>
+            </a>
+            {{ end }}
+        </nav>
+        {{ end }}
+
+        <div class="text-center">
+            <a href="/blog" class="link-simple">← All Articles</a>
+        </div>
+    </footer>
+</article>
+{{ end }}

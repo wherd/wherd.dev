@@ -1,0 +1,82 @@
+{{ define "main" }}
+<article>
+    <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">→</span>
+        <a href="/projects">Projects</a>
+        <span class="breadcrumb-separator">→</span>
+        <span>{{ .Title }}</span>
+    </nav>
+
+    <header class="section">
+        <div class="project-title-row">
+            <h1 class="project-name">{{ .Title }}</h1>
+            {{ if .Params.status }}
+            <span class="status-badge status-badge--{{ .Params.status | lower | urlize }}">{{ .Params.status }}</span>
+            {{ end }}
+        </div>
+
+        <p class="subtitle">{{ .Params.overview }}</p>
+
+        <div class="card-meta">
+            <span class="sr-only">Tags:</span>
+            <div class="tags">
+                {{ range .Params.tags }}
+                <a href="{{ "tags/" | relLangURL }}{{ . | urlize }}" class="tag">{{ . }}</a>
+                {{ end }}
+            </div>
+        </div>
+        
+        {{ if .Params.features }}
+        <ul class="feature-list">
+            {{ range .Params.features }}
+            <li>{{ . }}</li>
+            {{ end }}
+        </ul>
+        {{ end }}
+
+        <div class="quick-actions">
+            {{ if .Params.download }}
+            <a href="{{ .Params.download }}" class="btn">Download Binary</a>
+            {{ end }}
+            {{ if .Params.www }}
+            <a href="{{ .Params.www }}" class="btn">Visit Website</a>
+            {{ end }}
+
+            {{ if .Params.github }}
+            <a href="{{ .Params.github }}" class="btn btn--secondary">View on GitHub</a>
+            {{ end }}
+            {{ if .Params.docs }}
+            <a href="{{ .Params.docs }}" class="btn btn--secondary">Read Documentation</a>
+            {{ end }}
+        </div>
+    </header>
+
+    <main class="section">
+        {{ .Content }}
+    </main>
+
+    <footer class="section">
+        {{ if or .PrevInSection .NextInSection }}
+        <nav class="project-header">
+            {{ with .PrevInSection }}
+            <a href="{{ .RelPermalink }}" class="link-simple">
+                <div class="small-text text-muted">← Previous</div>
+                <div>{{ .Title }}</div>
+            </a>
+            {{ end }}
+            {{ with .NextInSection }}
+            <a href="{{ .RelPermalink }}" class="link-simple">
+                <div class="small-text text-muted">Next →</div>
+                <div>{{ .Title }}</div>
+            </a>
+            {{ end }}
+        </nav>
+        {{ end }}
+
+        <div class="text-center">
+            <a href="/projects" class="link-simple">← All Projects</a>
+        </div>
+    </footer>
+</article>
+{{ end }}
