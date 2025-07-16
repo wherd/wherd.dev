@@ -1,0 +1,11 @@
+/* TEAM */
+Developer: wherd
+Location: Earth
+Contact: hello [at] wherd.dev
+
+/* SITE */
+Last update: 2025/07/16
+Language: English
+Doctype: HTML5
+IDE: VS Code
+Technologies: Hugo, HTML, CSS, JavaScript

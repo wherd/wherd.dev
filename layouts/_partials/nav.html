@@ -5,8 +5,8 @@
     </a>
     <ul class="nav-menu">
         <li><a class="{{ if eq .RelPermalink "/" }}active{{ end }}" href="{{ .Site.BaseURL }}">Home</a></li>
-        <li><a class="{{ if hasPrefix .RelPermalink "/blog" }}active{{ end }}" href="{{ .Site.BaseURL }}/blog">Blog</a></li>
-        <li><a class="{{ if hasPrefix .RelPermalink "/projects" }}active{{ end }}" href="{{ .Site.BaseURL }}/projects">Projects</a></li>
+        <li><a class="{{ if hasPrefix .RelPermalink "/blog" }}active{{ end }}" href="{{ .Site.BaseURL }}/blog/">Blog</a></li>
+        <li><a class="{{ if hasPrefix .RelPermalink "/projects" }}active{{ end }}" href="{{ .Site.BaseURL }}/projects/">Projects</a></li>
         <li><a href="#helpOverlay" id="helpToggle"><span class="sr-only">Help</span><span aria-hidden="true" rel="presentation">?</span></a></li>
     </ul>
 </nav>
