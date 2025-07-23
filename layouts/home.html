@@ -23,13 +23,4 @@
     </div>
 </section>
 
-<section class="section">
-    <h2>Recent Writing</h2>
-    <div class="grid">
-        {{ range where site.RegularPages "Type" "blog" }}
-        {{ .Render "card" }}
-        {{ end }}
-    </div>
-</section>
-
 {{ end }}
